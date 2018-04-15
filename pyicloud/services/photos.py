@@ -487,6 +487,12 @@ class PhotoAsset:
 
         self._versions = None
 
+    ITEM_TYPES = {
+        u"public.heic": u"image",
+        u"public.jpeg": u"image",
+        u"com.apple.quicktime-movie": u"movie"
+    }
+
     PHOTO_VERSION_LOOKUP = {
         "original": "resOriginal",
         "medium": "resJPEGMed",
@@ -547,11 +553,15 @@ class PhotoAsset:
         )
 
     @property
+    def item_type(self):
+        return (self.ITEM_TYPES[self._master_record['fields']['itemType']['value']])
+
+    @property
     def versions(self):
         """Gets the photo versions."""
         if not self._versions:
             self._versions = {}
-            if "resVidSmallRes" in self._master_record["fields"]:
+            if self.item_type == "movie":
                 typed_version_lookup = self.VIDEO_VERSION_LOOKUP
             else:
                 typed_version_lookup = self.PHOTO_VERSION_LOOKUP
