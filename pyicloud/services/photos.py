@@ -174,10 +174,10 @@ class PhotosService:
                     continue
 
                 # FIXME: Handle subfolders
-                if folder['recordName'] in ('----Root-Folder----',
-                    '----Project-Root-Folder----') or \
-                    (folder['fields'].get('isDeleted') and
-                     folder['fields']['isDeleted']['value']):
+                if folder["recordName"] in ("----Root-Folder----",
+                    "----Project-Root-Folder----") or \
+                    (folder["fields"].get("isDeleted") and
+                     folder["fields"]["isDeleted"]["value"]):
                     continue
 
                 folder_id = folder["recordName"]
